@@ -23,9 +23,10 @@ export default function Post() {
 
     return (
         <div>
-            <h1>{post.title}</h1>
-            <p>{post.content}</p>
+            <h1>{post.title ?? ''}</h1>
+            <p>{post.content ?? ''}</p>
             <Link to={`/posts/${post.id}/edit`}>Edit</Link>
+            ok
         </div>
     );
 }

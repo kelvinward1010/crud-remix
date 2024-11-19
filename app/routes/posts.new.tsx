@@ -16,13 +16,15 @@ export default function NewPost() {
         <div>
             <h1>New Post</h1>
             <Form method="post">
-                <label>
-                    Title: <input type="text" name="title" />
-                </label>
-                <label>
-                    Content: <textarea name="content"></textarea>
-                </label>
-                <button type="submit">Create</button>
+                <div className='flex justify-start gap-2 flex-col'>
+                    <label>
+                        Title: <input type="text" name="title" />
+                    </label>
+                    <label>
+                        Content: <textarea name="content"></textarea>
+                    </label>
+                    <button type="submit">Create</button>
+                </div>
             </Form>
         </div>
     );

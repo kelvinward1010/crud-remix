@@ -10,7 +10,7 @@ type Post = {
 };
 
 export const loader: LoaderFunction = async () => {
-  const posts = await db.post.findMany();
+  const posts = await db?.post.findMany();
   return { posts };
 };
 

@@ -18,10 +18,10 @@ export default function NewPost() {
             <Form method="post">
                 <div className='flex justify-start gap-2 flex-col'>
                     <label>
-                        Title: <input type="text" name="title" />
+                        Title: <input className='border border-cyan-700' type="text" name="title" />
                     </label>
                     <label>
-                        Content: <textarea name="content"></textarea>
+                        Content: <textarea className='border border-cyan-700' name="content"></textarea>
                     </label>
                     <button type="submit">Create</button>
                 </div>

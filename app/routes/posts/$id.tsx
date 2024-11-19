@@ -11,10 +11,11 @@ type Post = {
 
 export const loader: LoaderFunction = async ({ params }) => {
     const id = Number(params.id);
+    console.log(params)
     if (isNaN(id)) { 
         throw new Error("Invalid post ID"); 
     }
-    const post = await db.post.findUnique({ where: { id: id } });
+    const post = await db.post.findUnique({ where: { id: Number(params.id) } });
     return { post };
 };
 

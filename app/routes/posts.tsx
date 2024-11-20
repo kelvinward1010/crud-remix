@@ -21,8 +21,9 @@ export default function Index() {
     setInitialRenderComplete(true);
   }, []);
   if (!initialRenderComplete) {
-    return null; // Tránh render trên phía client ban đầu 
+    return null;
   }
+
   return (
     <div className="w-full">
       <h1>Posts</h1>

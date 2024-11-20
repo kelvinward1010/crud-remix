@@ -10,7 +10,7 @@ type Post = {
 };
 
 export const loader: LoaderFunction = async ({ params }) => {
-    const id = Number(params.id);
+    const id = Number(params.postID);
     if (isNaN(id)) { 
         throw new Error("Invalid post ID"); 
     }
@@ -19,14 +19,13 @@ export const loader: LoaderFunction = async ({ params }) => {
 };
 
 export default function Post() {
-    const { post } = useLoaderData<{ post: Post }>();
+    const {post} = useLoaderData<typeof loader>();
 
     return (
         <div>
             <h1>{post.title ?? ''}</h1>
             <p>{post.content ?? ''}</p>
-            <Link to={`/posts/${post.id}/edit`}>Edit</Link>
-            ok
+            <Link to={`/posts/edit/${post.id}`}>Edit</Link>
         </div>
     );
 }

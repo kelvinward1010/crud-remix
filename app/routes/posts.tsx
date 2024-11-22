@@ -1,42 +1,29 @@
-import { LoaderFunction } from "@remix-run/node";
-import { Link, Outlet, useLoaderData } from "@remix-run/react";
+import { MetaFunction } from "@remix-run/node";
+import { Outlet } from "@remix-run/react";
 import { useEffect, useState } from "react";
-import { db } from "~/utils/db.server";
+import { Layout } from "~/components/Layout";
 
-type Post = {
-  id: number;
-  title: string;
-  content: string;
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Posts" },
+    { name: "description", content: "Welcome to Remix!" },
+  ];
 };
 
-export const loader: LoaderFunction = async () => {
-  const posts = await db?.post.findMany();
-  return { posts };
-};
-
-export default function Index() {
-  const { posts } = useLoaderData<{ posts: Post[] }>();
+export default function Posts() {
   const [initialRenderComplete, setInitialRenderComplete] = useState(false);
+
   useEffect(() => {
     setInitialRenderComplete(true);
   }, []);
+  
   if (!initialRenderComplete) {
     return null;
   }
 
   return (
-    <div className="w-full">
-      <h1>Posts</h1>
-      <Link to="/posts/new">Create New Post</Link>
-      <ul className="flex flex-col gap-2 justify-center w-full text-center">
-        all POSTS
-        {posts.map((post) => (
-          <li key={post.id}>
-            <Link to={`/posts/${post.id}`}>{post.title}</Link>
-          </li>
-        ))}
-      </ul>
+    <Layout>
       <Outlet />
-    </div>
+    </Layout>
   );
 }

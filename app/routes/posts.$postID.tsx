@@ -1,7 +1,14 @@
 
-import { LoaderFunction } from '@remix-run/node';
+import { LoaderFunction, MetaFunction } from '@remix-run/node';
 import { Link, useLoaderData } from '@remix-run/react';
 import { db } from '~/utils/db.server';
+
+export const meta: MetaFunction = () => {
+    return [
+      { title: "Post Detail" },
+      { name: "description", content: "Welcome to Remix!" },
+    ];
+};
 
 type Post = {
     id: number;
@@ -22,9 +29,9 @@ export default function Post() {
     const {post} = useLoaderData<typeof loader>();
 
     return (
-        <div>
-            <h1>{post.title ?? ''}</h1>
-            <p>{post.content ?? ''}</p>
+        <div className="w-64 mb-5 m-auto h-auto p-1 border border-cyan-500">
+            <h3 className="text-red-600">Title: {post.title}</h3>
+            <p className="text-orange-500">Content: {post.content}</p>
             <Link to={`/posts/edit/${post.id}`}>Edit</Link>
         </div>
     );

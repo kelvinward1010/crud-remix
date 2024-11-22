@@ -1,0 +1,26 @@
+Loader là một hàm được gọi để fetch data (lấy dữ liệu) trước khi render một component. 
+Dữ liệu này có thể là bất kỳ thứ gì: dữ liệu từ database, API, hoặc thậm chí là 
+các file tĩnh.
+
+Mục đích:
+    - Server-side rendering (SSR): Loader giúp render trang web ở phía server, 
+    cải thiện SEO và thời gian tải trang ban đầu.
+    - Data fetching: Cung cấp dữ liệu cần thiết cho component để hiển thị nội dung.
+    - Caching: Loader có thể được sử dụng để cache dữ liệu, giảm tải cho server 
+    và cải thiện hiệu năng.
+Cách hoạt động:
+    - Khi một route được truy cập, loader sẽ được gọi để lấy dữ liệu.
+    - Dữ liệu được trả về từ loader sẽ được truyền vào component như một props.
+    - Component sử dụng dữ liệu này để render giao diện người dùng.
+
+
+Action là một hàm được gọi để xử lý các tương tác của người dùng như gửi 
+form, xóa dữ liệu, hoặc cập nhật dữ liệu.
+
+Mục đích:
+    - Xử lý các sự kiện của người dùng: Khi người dùng thực hiện một hành động nào 
+    đó trên giao diện (ví dụ: nhấn nút submit form), action sẽ được gọi.
+    - Thay đổi dữ liệu trên server: Action thường được sử dụng để gửi dữ liệu 
+    lên server và cập nhật dữ liệu trong database.
+    - Chuyển hướng: Sau khi thực hiện một action, bạn có thể chuyển hướng 
+    người dùng đến một trang khác.

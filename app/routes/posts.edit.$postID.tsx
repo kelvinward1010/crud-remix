@@ -54,10 +54,10 @@ export default function EditPost() {
                 <FormInput typeInput={'textarea'} title='Content' name='content' defaultValue={post.content}/>
                 <Button title='Update'className='bg-teal-600 text-white'/>
             </Form>
-            <Form method="post" className='w-full text-center'>
+            {/* <Form method="post" className='w-full text-center'>
                 <input type="hidden" name="_method" value="delete" />
                 <Button title='Delete' className='bg-red-600 text-white'/>
-            </Form>
+            </Form> */}
         </div>
     );
 }

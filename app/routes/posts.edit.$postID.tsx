@@ -1,14 +1,16 @@
 
 import { ActionFunction, LoaderFunction, MetaFunction, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
+import { useState } from 'react';
 import Button from '~/components/Button';
 import FormInput from '~/components/FormInput';
 import { db } from '~/utils/db.server';
+import { postSchema } from '~/utils/validationSchema';
 
 export const meta: MetaFunction = () => {
     return [
-      { title: "Edit Post" },
-      { name: "description", content: "Welcome to Remix!" },
+        { title: "Edit Post" },
+        { name: "description", content: "Welcome to Remix!" },
     ];
 };
 
@@ -44,15 +46,21 @@ export const action: ActionFunction = async ({ request, params }) => {
 
 export default function EditPost() {
     const { post } = useLoaderData<{ post: Post }>();
+    const [formData, setFormData] = useState({ title: '', content: '' });
 
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+    
     return (
         <div className='w-9/12 border border-teal-600 mx-auto'>
             <h1 className='text-center'>Edit Post</h1>
             <Form method="post" className='text-center'>
                 <input type="hidden" name="_method" value="put" />
-                <FormInput title='Title' name='title' defaultValue={post.title}/>
-                <FormInput typeInput={'textarea'} title='Content' name='content' defaultValue={post.content}/>
-                <Button title='Update'className='bg-teal-600 text-white'/>
+                <FormInput onChange={handleInputChange} title='Title' name='title' defaultValue={post.title} />
+                <FormInput onChange={handleInputChange} typeInput={'textarea'} title='Content' name='content' defaultValue={post.content} />
+                <Button disabled={formData.content === '' && formData.title === '' ? true : false} title='Update' className='bg-teal-600 text-white' />
             </Form>
             {/* <Form method="post" className='w-full text-center'>
                 <input type="hidden" name="_method" value="delete" />

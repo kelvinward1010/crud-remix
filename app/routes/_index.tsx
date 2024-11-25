@@ -1,5 +1,5 @@
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
-import { Form, Link, useLoaderData } from "@remix-run/react";
+import { Form, Link, useFetcher, useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 import { Layout } from "~/components/Layout";
 import Modal from "~/components/Modal";
@@ -64,6 +64,8 @@ export default function Index() {
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
+  const fetcher = useFetcher();
+
   // const openModalDelete = (id: number) => {
   //   setSelectedPostId(id);
   //   setIsDeleteModal(true)
@@ -109,7 +111,7 @@ export default function Index() {
       <Modal showModal={showModal} onClose={closeModal} width="w-1/2">
         <div className=' w-full'>
           <h1>New Post</h1>
-          <Form onSubmit={handleSubmit} method="post" className='flex flex-col float-start w-full'>
+          <fetcher.Form onSubmit={handleSubmit} method="post" className='flex flex-col float-start w-full'>
             <input type="hidden" name="_method" value="post" />
             <div className='flex justify-start gap-2 flex-col'>
               <FormInput error={errors.title} onChange={handleInputChange} title='Title' name='title' />
@@ -119,20 +121,20 @@ export default function Index() {
                 <Button title="Cancel" onClick={closeModal} className="bg-gray-600 rounded text-white" />
               </div>
             </div>
-          </Form>
+          </fetcher.Form>
         </div>
       </Modal>
       <Modal showModal={isDeleteModal} onClose={closeModalDelete} width="w-1/2">
         <div>
           <p className="text-center">Do you want to delete this post?</p>
-          <Form method="post">
+          <fetcher.Form method="post">
             <input type="hidden" name="_method" value="delete" />
             <input type="hidden" name="postID" value={selectedPostId || ''} />
             <div className="flex justify-center">
               <Button title="Delete" className="bg-red-600 rounded text-white mx-2" />
               <Button title="Cancel" onClick={closeModalDelete} className="bg-gray-600 rounded text-white mx-2" />
             </div>
-          </Form>
+          </fetcher.Form>
         </div>
       </Modal>
     </Layout>

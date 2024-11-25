@@ -7,18 +7,14 @@ import Button from "~/components/Button";
 import { db } from "~/utils/db.server";
 import { ActionFunction, redirect } from "react-router-dom";
 import FormInput from "~/components/FormInput";
+import { IPost } from "~/types/post";
+import TableCpnt from "~/components/TableCpnt";
 
 export const meta: MetaFunction = () => {
   return [
     { title: "New Remix App" },
     { name: "description", content: "Welcome to Remix!" },
   ];
-};
-
-type Post = {
-  id: number;
-  title: string;
-  content: string;
 };
 
 interface FormPostProps {
@@ -57,7 +53,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Index() {
-  const { posts } = useLoaderData<{ posts: Post[] }>();
+  const { posts } = useLoaderData<{ posts: IPost[] }>();
   const [showModal, setShowModal] = useState(false);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
@@ -65,22 +61,22 @@ export default function Index() {
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
-  const openModalDelete = (id: number) => {
-    setSelectedPostId(id);
-    setIsDeleteModal(true)
-  };
+  // const openModalDelete = (id: number) => {
+  //   setSelectedPostId(id);
+  //   setIsDeleteModal(true)
+  // };
   const closeModalDelete = () => {
     setSelectedPostId(null);
     setIsDeleteModal(false)
   };
+  
+  const titleInTable = ["ID", "Title", "Content", "Actions"];
 
   return (
     <Layout>
-      <Button title="Create New Post" className='rounded bg-teal-600 text-white' onClick={openModal} />
+      <Button title="Create New Post" className='rounded mx-5 bg-teal-600 text-white' onClick={openModal} />
       <div className="mt-5" />
-      {posts.map((post) => (
-        <FormPost onClickOpenDelete={() => openModalDelete(post.id)} data={post} key={post.id} />
-      ))}
+      <TableCpnt setIsDeleteModal={setIsDeleteModal} setSelectedPostId={setSelectedPostId} title={titleInTable} data={posts ?? []} />
       <Modal showModal={showModal} onClose={closeModal} width="w-1/2">
         <div className=' w-full'>
           <h1>New Post</h1>
@@ -114,7 +110,7 @@ export default function Index() {
   );
 }
 
-function FormPost({ data, onClickOpenDelete }: FormPostProps) {
+export function FormPost({ data, onClickOpenDelete }: FormPostProps) {
   return (
     <div className="w-full mb-2 flex justify-between px-3 h-auto p-1 border border-cyan-500">
       <h3 className="text-red-600">Title: {data.title}</h3>

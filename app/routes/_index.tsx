@@ -36,7 +36,7 @@ export const loader: LoaderFunction = async () => {
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const method = formData.get('_method');
-
+  
   if (method === 'post') {
     const title = formData.get('title') as string ?? '';
     const content = formData.get('content') as string ?? '';
@@ -64,12 +64,8 @@ export default function Index() {
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
-  const fetcher = useFetcher();
+  const postFetcher = useFetcher();
 
-  // const openModalDelete = (id: number) => {
-  //   setSelectedPostId(id);
-  //   setIsDeleteModal(true)
-  // };
   const closeModalDelete = () => {
     setSelectedPostId(null);
     setIsDeleteModal(false)
@@ -98,8 +94,17 @@ export default function Index() {
   }; 
     
   const handleSubmit = (e: React.FormEvent) => { 
-    if (!validate()) { 
-      e.preventDefault(); 
+    e.preventDefault(); 
+    if (validate()) { 
+      postFetcher.submit(
+        { 
+          title: formData.title, 
+          content: formData.content, 
+          _method: 'post' 
+        }, 
+        { method: 'post', action: "/?index" } 
+      ); 
+      closeModal()
     }
   }
 
@@ -111,8 +116,7 @@ export default function Index() {
       <Modal showModal={showModal} onClose={closeModal} width="w-1/2">
         <div className=' w-full'>
           <h1>New Post</h1>
-          <fetcher.Form onSubmit={handleSubmit} method="post" className='flex flex-col float-start w-full'>
-            <input type="hidden" name="_method" value="post" />
+          <postFetcher.Form onSubmit={handleSubmit} method="post" className='flex flex-col float-start w-full'>
             <div className='flex justify-start gap-2 flex-col'>
               <FormInput error={errors.title} onChange={handleInputChange} title='Title' name='title' />
               <FormInput error={errors.content} onChange={handleInputChange} typeInput={'textarea'} title='Content' name='content' />
@@ -121,20 +125,20 @@ export default function Index() {
                 <Button title="Cancel" onClick={closeModal} className="bg-gray-600 rounded text-white" />
               </div>
             </div>
-          </fetcher.Form>
+          </postFetcher.Form>
         </div>
       </Modal>
       <Modal showModal={isDeleteModal} onClose={closeModalDelete} width="w-1/2">
         <div>
           <p className="text-center">Do you want to delete this post?</p>
-          <fetcher.Form method="post">
+          <Form method="post">
             <input type="hidden" name="_method" value="delete" />
             <input type="hidden" name="postID" value={selectedPostId || ''} />
             <div className="flex justify-center">
               <Button title="Delete" className="bg-red-600 rounded text-white mx-2" />
               <Button title="Cancel" onClick={closeModalDelete} className="bg-gray-600 rounded text-white mx-2" />
             </div>
-          </fetcher.Form>
+          </Form>
         </div>
       </Modal>
     </Layout>

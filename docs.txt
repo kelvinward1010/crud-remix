@@ -55,3 +55,11 @@ Khi nào nên sử dụng action
     Khi cần xác thực dữ liệu đầu vào và thực hiện các logic phức tạp trên server trước khi trả về kết quả cho client.
 
     Ví dụ: Xác thực thông tin người dùng, xử lý các thao tác liên quan đến giao dịch hoặc xử lý các thao tác liên quan đến bảo mật.
+
+
+
+useActionData giúp bạn truy cập dữ liệu mà action trả về sau khi xử lý form submission. 
+Điều này rất hữu ích để hiển thị thông báo, kết quả hoặc phản hồi từ phía server ngay 
+trên giao diện người dùng mà không cần điều hướng hoặc tải lại trang.
+
+

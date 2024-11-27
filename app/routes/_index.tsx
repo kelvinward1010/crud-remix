@@ -42,12 +42,12 @@ export const action: ActionFunction = async ({ request }) => {
     const content = formData.get('content') as string ?? '';
 
     await db.post.create({ data: { title, content } });
-    return redirect('/');
+    return null;
   } else if (method === 'delete') {
     const id = formData.get('postID');
     if (id) {
       await db.post.delete({ where: { id: Number(id) } });
-      return redirect('/');
+      return null;
     }
   }
   return null;

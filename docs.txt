@@ -24,3 +24,34 @@ Mục đích:
     lên server và cập nhật dữ liệu trong database.
     - Chuyển hướng: Sau khi thực hiện một action, bạn có thể chuyển hướng 
     người dùng đến một trang khác.
+
+Khi nào nên sử dụng useFetcher
+    - useFetcher là một hook tiện ích để thực hiện các yêu cầu không đồng bộ mà không cần điều hướng trang. Nó phù hợp trong các trường hợp sau:
+
+    Tải dữ liệu động: Khi bạn cần tải dữ liệu không đồng bộ để cập nhật giao diện mà không cần điều hướng lại trang.
+
+    Ví dụ: Tải thêm nội dung khi người dùng nhấn nút "Load more" hoặc cập nhật danh sách bài viết mà không cần tải lại trang.
+    Gửi form không cần điều hướng:
+    Khi bạn cần gửi dữ liệu từ form tới server mà không cần điều hướng hoặc làm mới trang.
+
+    Ví dụ: Form đăng ký nhận bản tin hoặc cập nhật thông tin người dùng mà không cần chuyển hướng trang.
+    Thực hiện các hành động không cần điều hướng:
+    Khi bạn cần thực hiện các hành động như cập nhật, xóa dữ liệu mà không cần điều hướng lại trang.
+
+    Ví dụ: Xóa một mục khỏi danh sách hoặc cập nhật một mục mà không thay đổi URL hoặc làm mới trang.
+
+Khi nào nên sử dụng action
+    - action là các hàm trong Remix dùng để xử lý các yêu cầu HTTP POST, PUT, DELETE hoặc PATCH. Nó phù hợp trong các trường hợp sau:
+
+    Xử lý form submission:
+    Khi người dùng gửi dữ liệu từ form và bạn cần xử lý dữ liệu đó trên server.
+
+    Ví dụ: Xử lý đăng nhập, đăng ký, gửi bài viết mới, hoặc cập nhật thông tin người dùng.
+    Xử lý các yêu cầu POST, PUT, DELETE, PATCH:
+    Khi bạn cần thực hiện các yêu cầu HTTP để thay đổi trạng thái trên server.
+
+    Ví dụ: Tạo mới một mục, cập nhật dữ liệu hiện có, hoặc xóa dữ liệu.
+    Yêu cầu xác thực và xử lý dữ liệu phức tạp:
+    Khi cần xác thực dữ liệu đầu vào và thực hiện các logic phức tạp trên server trước khi trả về kết quả cho client.
+
+    Ví dụ: Xác thực thông tin người dùng, xử lý các thao tác liên quan đến giao dịch hoặc xử lý các thao tác liên quan đến bảo mật.

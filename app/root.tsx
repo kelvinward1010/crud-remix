@@ -9,6 +9,14 @@ import {
 } from "@remix-run/react";
 
 import "./tailwind.css";
+import { Suspense } from "react";
+
+import appStylesHref from "./tailwind.css?url";
+import { LinksFunction } from "@remix-run/node";
+
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: appStylesHref },
+];
 
 export function Layout({ children }: { children: React.ReactNode }) {
 
@@ -20,7 +28,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+      <Suspense fallback={<div className="flex justify-center items-center h-screen">Loading...</div>}>
         {children}
+      </Suspense>
         <ScrollRestoration />
         <Scripts />
       </body>

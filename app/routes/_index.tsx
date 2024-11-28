@@ -121,8 +121,10 @@ export default function Index() {
   useEffect(() => { 
     const timeoutId = setTimeout(() => { 
       if (searchQuery) { 
+        //window.history.pushState({}, '', `/?search=${searchQuery}`);
         navigate(`/?search=${searchQuery}`); 
       }else{
+        //window.history.pushState({}, '', `/`);
         navigate('/');
       }
     }, 1500); 
@@ -186,7 +188,7 @@ export default function Index() {
     postFetcher.submit( 
       { search: searchQuery }, 
       { method: 'get', action: "/" } 
-    ); 
+    );
   };
 
   if (loaderError) { 

@@ -7,6 +7,8 @@ export const action: ActionFunction = async ({ request }) => {
     const name = formData.get('name');
     const email = formData.get('email');
 
+    console.log(formData)
+
     // check
     if (typeof name !== 'string' || typeof email !== 'string') {
         return json({ error: 'Invalid form data' }, { status: 400 });

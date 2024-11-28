@@ -1,5 +1,5 @@
 
-import { Link } from "@remix-run/react";
+import { Link, PrefetchPageLinks } from "@remix-run/react";
 import { IPost } from "~/types/post";
 import Button from "./Button";
 
@@ -36,6 +36,7 @@ function TableCpnt({ title, data, setSelectedPostId, setIsDeleteModal }: TablePr
                                     <Link to={`/posts/${user?.id}`}>
                                         <Button title="View" className='rounded bg-teal-600 text-white' />
                                     </Link>
+                                    {/* <PrefetchPageLinks page={`/posts/${user?.id}`}/> */}
                                     <Button onClick={() => handleDelete(user.id)} title='Delete' className='bg-red-600 border-none rounded text-white' />
                                 </div>
                             </td>

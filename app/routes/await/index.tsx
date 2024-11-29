@@ -1,6 +1,6 @@
 // app/routes/index.tsx
 import { LoaderFunction, MetaFunction } from "@remix-run/node";
-import { Await, Form, useAsyncValue, useFetcher, useLoaderData } from "@remix-run/react";
+import { Await, Form, useFetcher, useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import Tablecopy from "~/components/Tablecopy";
 import { URL_DATA } from "~/config";
@@ -70,7 +70,7 @@ export default function Index() {
 
     return (
         <div>
-            <Form className="my-5 mx-5">
+            <Form method="get" action="/await" className="my-5 mx-5">
                 <div className="flex gap-2">
                     <input
                         type="text"
@@ -80,6 +80,7 @@ export default function Index() {
                         placeholder="Search posts by title or content..."
                         className="border rounded p-2"
                     />
+                    <button hidden type="submit"></button>
                 </div>
             </Form>
 

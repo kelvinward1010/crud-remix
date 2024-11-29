@@ -176,7 +176,7 @@ export default function Index() {
           content: formData.content, 
           _method: 'post',
         }, 
-        { method: 'post', action: "/?index" } 
+        { method: 'post', action: "/" } 
       ); 
       closeModal()
     }

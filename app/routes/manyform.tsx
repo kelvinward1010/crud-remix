@@ -56,7 +56,12 @@ export const action: ActionFunction = async ({ request }) => {
 
     console.log(form1, form2)
 
-    return json({ message: 'Both forms submitted', form1, form2 });
+    const converted ={
+        form1: form1,
+        form2: form2,
+    }
+
+    return json({ message: 'Both forms submitted', converted });
 };
 
 export default function ManyForm() {

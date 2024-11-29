@@ -102,6 +102,7 @@ export default function Index() {
   const [loaderError, setLoaderError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const postFetcher = useFetcher();
+  const deleteFetcher = useFetcher()
   const navigate = useNavigate();
 
   useEffect(() => { 
@@ -176,7 +177,7 @@ export default function Index() {
           content: formData.content, 
           _method: 'post',
         }, 
-        { method: 'post', action: "/" } 
+        { method: 'post', action: "/?index" } 
       ); 
       closeModal()
     }
@@ -244,14 +245,14 @@ export default function Index() {
       <Modal showModal={isDeleteModal} onClose={closeModalDelete} width="w-1/2">
         <div>
           <p className="text-center">Do you want to delete this post?</p>
-          <Form method="post">
+          <deleteFetcher.Form method="post">
             <input type="hidden" name="_method" value="delete" />
             <input type="hidden" name="postID" value={selectedPostId || ''} />
             <div className="flex justify-center">
               <Button title="Delete" className="bg-red-600 rounded text-white mx-2" />
               <Button title="Cancel" onClick={closeModalDelete} className="bg-gray-600 rounded text-white mx-2" />
             </div>
-          </Form>
+          </deleteFetcher.Form>
         </div>
       </Modal>
     </Layout>

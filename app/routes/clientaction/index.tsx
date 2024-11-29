@@ -27,20 +27,20 @@ export const loader: LoaderFunction = async ({ request }) => {
     return json(posts);
 };
 
-export const clientLoader = async ({ request }: ClientLoaderFunctionArgs) => {
-    const url = new URL(request.url);
-    const search = url.searchParams.get("search") || "";
-    const postsdata = await db.post.findMany({
-        where: {
-            OR: [
-                { title: { contains: search } },
-                { content: { contains: search } },
-            ],
-        },
-    });
+// export const clientLoader = async ({ request }: ClientLoaderFunctionArgs) => {
+//     const url = new URL(request.url);
+//     const search = url.searchParams.get("search") || "";
+//     const postsdata = await db.post.findMany({
+//         where: {
+//             OR: [
+//                 { title: { contains: search } },
+//                 { content: { contains: search } },
+//             ],
+//         },
+//     });
 
-    return json(postsdata);
-};
+//     return json(postsdata);
+// };
 
 export default function Index() {
     const posts = useLoaderData<IPost[]>();

@@ -39,9 +39,11 @@ export default function Index() {
     const postFetcher: any = useFetcher();
     const [searchQuery, setSearchQuery] = useState("");
     const titleInTable = ["ID", "Title", "Content"];
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     
     useEffect(() => {
         const timeoutId = setTimeout(() => {
+            setIsLoading(true);
             if (searchQuery) {
                 window.history.pushState({}, '', `/await?search=${searchQuery}`);
                 postFetcher.load(`/await?search=${searchQuery}`);
@@ -54,9 +56,17 @@ export default function Index() {
         return () => clearTimeout(timeoutId);
     }, [searchQuery]);
 
+    useEffect(() => {
+        if(postFetcher.data && postFetcher.state === 'idle'){
+            setIsLoading(false)
+        }
+    },[postFetcher.state])
+
     const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
     };
+
+    
 
     return (
         <div>
@@ -74,7 +84,10 @@ export default function Index() {
             </Form>
 
             <postFetcher.Form />
-            <Await
+            {isLoading ? (
+                <div className="text-center">Loading...</div>
+            ):(
+                <Await
                 resolve={postFetcher.data?.posts || posts}
                 errorElement={<p>Error loading posts.</p>}
             >
@@ -90,6 +103,7 @@ export default function Index() {
                 )} */}
                 <Tablecopy title={titleInTable}/>
             </Await>
+            )}
         </div>
     );
 }

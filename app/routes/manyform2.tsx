@@ -25,8 +25,6 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function ManyForm() {
-    // const actionData = useActionData();
-    // const fetcher = useFetcher();
 
     return (
         <div>
@@ -43,18 +41,6 @@ export default function ManyForm() {
                 <input type="number" name="field2B" placeholder="Field 2B" />
                 <button type="submit">Submit Form 2</button>
             </form>
-
-            {/* {actionData && (
-                <div>
-                    <h3>Form 1 Data</h3>
-                    <p>Field 1A: {actionData.form1Data?.field1A}</p>
-                    <p>Field 1B: {actionData.form1Data?.field1B}</p>
-
-                    <h3>Form 2 Data</h3>
-                    <p>Field 2A: {actionData.form2Data?.field2A}</p>
-                    <p>Field 2B: {actionData.form2Data?.field2B}</p>
-                </div>
-            )} */}
         </div>
     );
 }

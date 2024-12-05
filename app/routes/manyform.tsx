@@ -54,12 +54,12 @@ export const action: ActionFunction = async ({ request }) => {
     // Xử lý dữ liệu từ form 2 
     const { field2A, field2B } = form2;
 
-    console.log(form1, form2)
-
+    
     const converted ={
         form1: form1,
         form2: form2,
     }
+    console.log(converted)
 
     return json({ message: 'Both forms submitted', converted });
 };

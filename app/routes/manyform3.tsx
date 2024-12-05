@@ -1,5 +1,5 @@
 import { ActionFunction, json } from "@remix-run/node";
-import { useActionData, useFetcher } from "@remix-run/react";
+import { useActionData, useFetcher, useNavigation } from "@remix-run/react";
 import { useState } from "react";
 
 export const action: ActionFunction = async ({ request }) => {
@@ -33,6 +33,8 @@ export const action: ActionFunction = async ({ request }) => {
 export default function ManyForm() {
     const actionData: any = useActionData();
     const fetcher = useFetcher();
+    const transition = useNavigation();
+    console.log(transition)
 
     const [form1, setForm1] = useState({ field1A: '', field1B: '' });
     const [form2, setForm2] = useState({ field2A: '', field2B: '' });
@@ -92,6 +94,7 @@ export default function ManyForm() {
                 />
             </form>
             <button type="submit" onClick={(e: any) =>handleSubmit(e)}>Submit Both Forms</button>
+            {transition.state === "submitting" && ( <div>Loading...</div> )}
         </div>
     );
 }

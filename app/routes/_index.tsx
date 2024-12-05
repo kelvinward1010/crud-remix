@@ -42,23 +42,34 @@ export const loader: LoaderFunction = async ({request}) => {
   }
 
   try { 
-    const posts = await db?.post.findMany({
-      where: {
-        OR: [
-          {title: { contains: search}},
-          {content: { contains: search}},
-        ]
-      }
-    }); 
+    const posts = await new Promise<IPost[]>((resolve, reject) => { 
+      setTimeout(async () => { 
+        try { 
+          const posts = await db?.post.findMany({ 
+            where: { 
+              OR: [ { title: { contains: search } }, 
+                { content: { contains: search } }, 
+              ] } }); 
+          resolve(posts); 
+        } catch (error) { 
+          reject(error); 
+        } 
+      }, 2000); 
+    })
     results.posts = { status: 'success', data: posts, error: null }; 
   } catch (error: any) { 
     results.posts = { status: 'error', data: null, error: error?.message }; 
   }
 
   try { 
-    const post2 = await Promise.resolve({
-      name: "kelvin",
-      age: 25,
+    const post2 = await new Promise<{ name: string, age: number }>((resolve, reject) => { 
+      setTimeout(() => { 
+        try { 
+          resolve({ name: "kelvin", age: 25 }); 
+        } catch (error) { 
+          reject(error); 
+        } 
+      }, 3000); 
     });
     results.posts2 = { status: 'success', data: post2, error: null }; 
   } catch (error: any) { 

@@ -1,5 +1,5 @@
 import { ActionFunction, json } from "@remix-run/node";
-import { data, Form, useActionData, useFetcher } from "@remix-run/react";
+import { data, Form, useActionData, useFetcher, useNavigate } from "@remix-run/react";
 
 
 
@@ -66,7 +66,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function ManyForm() {
     const actionData: any = useActionData();
-
+    const navigate = useNavigate();
     const fetcher = useFetcher();
 
     console.log(fetcher.data)
@@ -123,7 +123,7 @@ export default function ManyForm() {
                 </form>
             </div> */}
 
-
+            <div onClick={() => navigate('/clock')}>BUTTON</div>
             <div>
                 <form id="form1" method="post">
                     <input type="text" name="field1A" placeholder="Field 1A" />

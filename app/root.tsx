@@ -33,6 +33,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </Suspense>
         <ScrollRestoration />
         <Scripts />
+        <ErrorBoundary />
       </body>
     </html>
   );
@@ -67,9 +68,9 @@ export function ErrorBoundary(){
     )
   }
 
-  return (
-    <div className="bg-red-500">
-      Your app died
-    </div>
-  )
+  // return (
+  //   <div className="bg-red-500">
+  //     Your app died
+  //   </div>
+  // )
 }
